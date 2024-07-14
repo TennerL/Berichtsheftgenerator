@@ -4,11 +4,10 @@ import subprocess
 
 tasks = [
     "ASP.NET Programmierung",
-    "VB.NET Programmierung und Debugging"
+    "VB.NET Programmierung und Debugging",
     "HTML und JavaScript Programmierung",
     "ASP.NET Schnittstellenprogrammierung",
     "PHP Backend-Programmierung",
-    "Code-Reviews durchführen",
     "Fehlerbehebung und Debugging",
     "Dokumentation schreiben",
     "Datenbankverwaltung",
@@ -27,7 +26,7 @@ def generate_random_entry(date):
     hours = round(random.uniform(7.0, 8.0), 1)  
     return f"{date}: {task}", hours
 
-# Liste der Berufsschultage
+# Berufsschultage
 school_days = [
     datetime.date(2022, 9, 26), datetime.date(2022, 9, 27), datetime.date(2022, 9, 28),
     datetime.date(2022, 9, 29), datetime.date(2022, 9, 30), datetime.date(2022, 10, 2), 
@@ -65,6 +64,7 @@ school_days = [
     datetime.date(2023, 11, 15), datetime.date(2023, 11, 16), datetime.date(2023, 11, 17)
 ]
 
+# Feiertage
 holidays = [
     datetime.date(2022, 1, 1),    # Neujahrstag
     datetime.date(2022, 4, 15),   # Karfreitag
@@ -89,7 +89,7 @@ holidays = [
     datetime.date(2024, 10, 3)    # Tag der Deutschen Einheit
 ]
 
-# Liste der Urlaubstage
+# Urlaubstage
 vacation_days = [
     datetime.date(2022, 11, 28), datetime.date(2022, 11, 29),
     datetime.date(2022, 12, 15), datetime.date(2022, 12, 16),
