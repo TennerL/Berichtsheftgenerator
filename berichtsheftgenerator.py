@@ -141,7 +141,7 @@ latex_template = r"""
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{Berichtsheft 1. Lehrjahr FiAe}
-\fancyhead[R]{Jakob Klaus \quad \quad Seite \thepage\ von \pageref{LastPage}}
+\fancyhead[R]{NAME \quad \quad Seite \thepage\ von \pageref{LastPage}}
 
 \begin{document}
 """
