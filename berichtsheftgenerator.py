@@ -4,7 +4,8 @@ import subprocess
 
 tasks = [
     "ASP.NET Programmierung",
-    "HTML Programmierung",
+    "VB.NET Programmierung und Debugging"
+    "HTML und JavaScript Programmierung",
     "ASP.NET Schnittstellenprogrammierung",
     "PHP Backend-Programmierung",
     "Code-Reviews durchführen",
@@ -12,7 +13,6 @@ tasks = [
     "Dokumentation schreiben",
     "Datenbankverwaltung",
     "Netzwerkadministration",
-    "Benutzersupport",
     "Systemwartung",
     "Tests und Qualitätssicherung",
     "Entwicklung von Scripts",
@@ -89,7 +89,24 @@ holidays = [
     datetime.date(2024, 10, 3)    # Tag der Deutschen Einheit
 ]
 
-# Generiere Einträge für ein Jahr
+# Liste der Urlaubstage
+vacation_days = [
+    datetime.date(2022, 11, 28), datetime.date(2022, 11, 29),
+    datetime.date(2022, 12, 15), datetime.date(2022, 12, 16),
+    datetime.date(2022, 12, 22), datetime.date(2022, 12, 23),
+    datetime.date(2023, 1, 2),
+    datetime.date(2023, 1, 3), datetime.date(2023, 1, 4),
+    datetime.date(2023, 1, 5), datetime.date(2023, 1, 6),
+    datetime.date(2023, 2, 8), datetime.date(2023, 2, 9),
+    datetime.date(2023, 2, 10), datetime.date(2023, 5, 19),
+    datetime.date(2023, 8, 7), datetime.date(2023, 8, 8),
+    datetime.date(2023, 8, 9), datetime.date(2023, 8, 10),
+    datetime.date(2023, 8, 11), datetime.date(2023, 10, 23),
+    datetime.date(2023, 10, 24), datetime.date(2023, 12, 18),
+    datetime.date(2023, 12, 19), datetime.date(2023, 12, 20),
+    datetime.date(2023, 12, 21), datetime.date(2023, 12, 22)    
+]
+
 def generate_yearly_report():
     start_date = datetime.date(2022, 9, 1)  
     end_date = datetime.date(2023, 9, 1)   
@@ -102,17 +119,18 @@ def generate_yearly_report():
     while current_date <= end_date:
         if current_date.weekday() < 5:  
             if current_date in holidays:
-                month_entries.append((f"{current_date}: Feiertag", None))
+                month_entries.append((f"{current_date}: \\textbf{{Feiertag}}", ""))
             elif current_date in school_days:
                 month_entries.append((f"{current_date}: Berufsschule", None))
+            elif current_date in vacation_days:
+                month_entries.append((f"{current_date}: \\textbf{{Urlaub}}", None))
             else:
                 entry, hours = generate_random_entry(current_date)
                 month_entries.append((entry, hours))
         
+        if current_date.weekday() == 4 and (current_date.day >= 24 or current_date == end_date):
 
-        if current_date.weekday() == 4 and current_date.day >= 24:
-
-            if current_date.month != (current_date + datetime.timedelta(days=7)).month:
+            if current_date.month != (current_date + datetime.timedelta(days=7)).month or current_date == end_date:
                 month_entries.append(("SIGNATURE", None))
                 report.append(month_entries)
                 month_entries = []
@@ -141,7 +159,7 @@ latex_template = r"""
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{Berichtsheft 1. Lehrjahr FiAe}
-\fancyhead[R]{NAME \quad \quad Seite \thepage\ von \pageref{LastPage}}
+\fancyhead[R]{Jakob Klaus \quad \quad Seite \thepage\ von \pageref{LastPage}}
 
 \begin{document}
 """
@@ -178,6 +196,8 @@ for month_entries in yearly_report:
             latex_content += r"\multicolumn{3}{|p{0.95\textwidth}|}{\textbf{Unterschrift Azubi:} \hfill \textbf{Unterschrift Arbeitgeber:} \vspace{2cm}} \\ \hline" + "\n"
         elif "Berufsschule" in entry:
             latex_content += fr"\textbf{{{entry.split(': ')[0]}}} & \textbf{{Berufsschule}} & \\ \hline" + "\n"
+        elif "Urlaub" in entry:
+            latex_content += fr"\textbf{{{entry.split(': ')[0]}}} & \textbf{{Urlaub}} & \\ \hline" + "\n"
         else:
             date, task = entry.split(": ")
             latex_content += fr"{date} & {task} & {hours} \\ \hline" + "\n"
